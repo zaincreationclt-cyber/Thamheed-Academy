@@ -1,1 +1,347 @@
 
+
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123b2b">
+<title>Thamheed Academy | Student Portal</title>
+<style>
+:root {
+  --green:#123b2b;
+  --green2:#216344;
+  --gold:#e6c66f;
+  --bg:#f4f7f4;
+  --white:#fff;
+  --text:#172b22;
+  --muted:#68786e;
+  --red:#b62e3b;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  font-family:system-ui,-apple-system,"Noto Sans Malayalam",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+button,input { font:inherit; }
+button { cursor:pointer; }
+.top {
+  background:linear-gradient(135deg,#123b2b,#246849);
+  color:white;
+  padding:24px 18px 28px;
+  border-radius:0 0 26px 26px;
+}
+.toprow {
+  display:flex; align-items:center; gap:12px;
+}
+.logo {
+  width:49px;height:49px;border-radius:15px;
+  background:#ffffff1c;border:1px solid #ffffff55;
+  display:grid;place-items:center;font-size:25px;
+}
+.brand { flex:1; }
+.brand h1 { font-size:19px;margin:0; }
+.brand p { font-size:12px;color:#d7e8dc;margin:5px 0 0; }
+.lang {
+  border:1px solid #ffffff66;border-radius:9px;
+  padding:7px;background:transparent;color:white;
+}
+.welcome { margin-top:26px; }
+.welcome h2 { margin:0 0 8px;font-size:24px; }
+.welcome p { color:#dcebe1;font-size:14px;margin:0; }
+.container { max-width:850px;margin:auto;padding:18px 15px 95px; }
+.notice {
+  background:#fff1d4;border:1px solid #f0d18b;
+  border-left:5px solid #dc9b1d;border-radius:13px;
+  padding:14px;margin-top:-1px;
+}
+.notice strong { display:block;color:#815510;margin-bottom:5px; }
+.notice p { margin:0;font-size:13px;line-height:1.7; }
+.section-title {
+  display:flex;justify-content:space-between;align-items:center;
+  margin:25px 0 13px;
+}
+.section-title h2 { font-size:17px;margin:0; }
+.section-title span { color:var(--muted);font-size:12px; }
+.grid {
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;
+}
+.tile {
+  background:white;border:1px solid #e6ebe6;border-radius:17px;
+  padding:18px 14px;text-align:left;color:var(--text);
+  box-shadow:0 3px 12px #183d2410;min-height:135px;
+}
+.tile:active { transform:scale(.98); }
+.tile .emoji { font-size:28px;display:block;margin-bottom:12px; }
+.tile strong { display:block;font-size:15px; }
+.tile small { display:block;color:var(--muted);margin-top:6px;line-height:1.5; }
+.green { background:#e8f4eb; }
+.gold { background:#fff4dc; }
+.blue { background:#edf0ff; }
+.pink { background:#fff0ef; }
+.panel {
+  background:white;border-radius:17px;padding:17px;
+  border:1px solid #e5ebe5;margin-top:13px;
+}
+.panel h3 { font-size:16px;margin:0 0 13px; }
+.item {
+  padding:12px 0;border-bottom:1px solid #edf0ed;
+  display:flex;gap:11px;align-items:flex-start;
+}
+.item:last-child { border:0;padding-bottom:0; }
+.item .symbol { font-size:21px; }
+.item strong { display:block;font-size:14px; }
+.item small { display:block;color:var(--muted);margin-top:4px;line-height:1.5; }
+.tag {
+  display:inline-block;background:#e8f4eb;color:#216344;
+  padding:4px 8px;border-radius:7px;font-size:11px;margin-top:7px;
+}
+.bottom {
+  position:fixed;bottom:0;left:0;right:0;
+  display:flex;justify-content:space-around;
+  background:#ffffffed;backdrop-filter:blur(10px);
+  border-top:1px solid #e5eae5;padding:10px 4px;
+  z-index:5;
+}
+.bottom button {
+  background:transparent;border:0;color:#66766c;
+  font-size:11px;padding:5px;min-width:58px;
+}
+.bottom button span { display:block;font-size:21px;margin-bottom:4px; }
+.bottom button.active { color:var(--green2);font-weight:700; }
+.view { display:none; }
+.view.active { display:block; }
+.field { display:block;margin:13px 0; }
+.field span { display:block;font-size:13px;margin-bottom:7px; }
+.field input {
+  width:100%;padding:13px;border:1px solid #d6ded7;
+  border-radius:10px;background:white;color:var(--text);
+}
+.primary {
+  width:100%;border:0;background:var(--green);
+  color:white;padding:13px;border-radius:11px;font-weight:700;
+}
+.secondary {
+  border:1px solid #cfdacf;background:white;
+  color:var(--green);padding:10px 13px;border-radius:9px;
+}
+.help { color:var(--muted);font-size:12px;line-height:1.7; }
+.rowline { display:flex;justify-content:space-between;gap:10px;align-items:center; }
+.listrow {
+  padding:13px 0;border-bottom:1px solid #edf0ed;
+}
+.listrow:last-child { border-bottom:0; }
+.listrow strong { font-size:14px; }
+.listrow p { font-size:12px;color:var(--muted);margin:5px 0; }
+@media(min-width:650px) {
+  .grid { grid-template-columns:repeat(4,minmax(0,1fr)); }
+  .top { padding-left:max(24px,calc((100% - 820px)/2)); }
+  .container { padding-top:24px; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="toprow">
+    <div class="logo">📚</div>
+    <div class="brand">
+      <h1>Thamheed Academy</h1>
+      <p>Student Learning Portal</p>
+    </div>
+    <button class="lang" onclick="toggleLanguage()">ML / EN</button>
+  </div>
+  <div class="welcome">
+    <h2 id="welcomeTitle">അസ്സലാമു അലൈക്കും!</h2>
+    <p id="welcomeSub">പഠനത്തിനും അറിവിനും നിങ്ങളുടെ ഡിജിറ്റൽ ഇടം.</p>
+  </div>
+</header>
+
+<main class="container">
+  <section id="home" class="view active">
+    <div class="notice">
+      <strong>📢 പ്രധാന അറിയിപ്പ് | Important Notice</strong>
+      <p id="noticeText">Academy-യുടെ പുതിയ അറിയിപ്പുകൾ ഇവിടെ പ്രസിദ്ധീകരിക്കും. ഔദ്യോഗിക അറിയിപ്പുകൾ Admin ചേർക്കുന്നതുവരെ ഇത് മാതൃക മാത്രമാണ്.</p>
+    </div>
+
+    <div class="section-title">
+      <h2 id="servicesTitle">നിങ്ങളുടെ പഠനസൗകര്യങ്ങൾ</h2>
+      <span>STUDENT PORTAL</span>
+    </div>
+
+    <div class="grid">
+      <button class="tile green" onclick="showView('books')">
+        <span class="emoji">📚</span>
+        <strong>Books | പുസ്തകങ്ങൾ</strong>
+        <small>പുസ്തകങ്ങളും വായനാ സാമഗ്രികളും</small>
+      </button>
+      <button class="tile gold" onclick="showView('notes')">
+        <span class="emoji">📝</span>
+        <strong>Notes | നോട്ട്സ്</strong>
+        <small>ക്ലാസ് നോട്ട്സും PDF-കളും</small>
+      </button>
+      <button class="tile blue" onclick="showView('timetable')">
+        <span class="emoji">🗓️</span>
+        <strong>Timetable</strong>
+        <small>ക്ലാസ് സമയക്രമം കാണുക</small>
+      </button>
+      <button class="tile pink" onclick="showView('announcements')">
+        <span class="emoji">📣</span>
+        <strong>Announcements</strong>
+        <small>പ്രധാന അറിയിപ്പുകൾ കാണുക</small>
+      </button>
+    </div>
+
+    <div class="section-title"><h2>ഇന്നത്തെ പഠനം | Study</h2></div>
+    <div class="panel">
+      <div class="item">
+        <span class="symbol">🎯</span>
+        <div><strong>നിങ്ങളുടെ പഠനത്തിൽ മുന്നേറുക</strong>
+          <small>നിങ്ങളുടെ വ്യക്തിഗത വിവരങ്ങൾ കാണാൻ Student Login ഉപയോഗിക്കുക.</small>
+        </div>
+      </div>
+      <div class="item">
+        <span class="symbol">🔐</span>
+        <div><strong>Student Portal Login</strong>
+          <small>രജിസ്റ്റർ ചെയ്ത മൊബൈൽ നമ്പറും Student ID-യും ഉപയോഗിക്കുക.</small>
+          <button class="secondary" style="margin-top:10px"
+            onclick="showView('login')">Login / പ്രവേശിക്കുക</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="books" class="view">
+    <div class="section-title"><h2>📚 Books | പുസ്തകങ്ങൾ</h2></div>
+    <div class="panel">
+      <p class="help">Academy പ്രസിദ്ധീകരിക്കുന്ന പുസ്തകങ്ങളുടെ ലിങ്കുകൾ ഇവിടെ ലഭിക്കും.</p>
+      <div id="booksList"></div>
+    </div>
+  </section>
+
+  <section id="notes" class="view">
+    <div class="section-title"><h2>📝 Notes | നോട്ട്സ്</h2></div>
+    <div class="panel">
+      <p class="help">വിഷയവും ക്ലാസും അനുസരിച്ചുള്ള നോട്ട്സ് ഇവിടെ ലഭിക്കും.</p>
+      <div id="notesList"></div>
+    </div>
+  </section>
+
+  <section id="timetable" class="view">
+    <div class="section-title"><h2>🗓️ Timetable</h2></div>
+    <div class="panel">
+      <p class="help">ക്ലാസ് സമയക്രമം Admin പ്രസിദ്ധീകരിച്ച ശേഷം ഇവിടെ കാണിക്കും.</p>
+      <div id="timetableList"></div>
+    </div>
+  </section>
+
+  <section id="announcements" class="view">
+    <div class="section-title"><h2>📣 അറിയിപ്പുകൾ</h2></div>
+    <div class="panel">
+      <div class="item"><span class="symbol">🔔</span>
+        <div><strong>പ്രധാന അറിയിപ്പുകൾ</strong>
+          <small>യഥാർത്ഥ അറിയിപ്പുകൾ Firebase ബന്ധിപ്പിച്ച ശേഷം ലഭ്യമാകും.</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="login" class="view">
+    <div class="section-title"><h2>🔐 Student Login</h2></div>
+    <div class="panel">
+      <p class="help">രജിസ്റ്റർ ചെയ്ത വിവരങ്ങൾ നൽകി നിങ്ങളുടെ അക്കൗണ്ട് പരിശോധിക്കുക.</p>
+      <form id="loginForm">
+        <label class="field">
+          <span>Student ID | വിദ്യാർത്ഥി ഐഡി</span>
+          <input id="studentId" autocomplete="username"
+            placeholder="ഉദാ: THA001" required>
+        </label>
+        <label class="field">
+          <span>Registered Mobile Number | രജിസ്റ്റർ ചെയ്ത നമ്പർ</span>
+          <input id="mobile" type="tel" inputmode="numeric"
+            autocomplete="tel" placeholder="മൊബൈൽ നമ്പർ" required>
+        </label>
+        <button class="primary" type="submit">Continue | തുടരുക</button>
+      </form>
+      <p id="loginMessage" class="help" aria-live="polite"></p>
+      <p class="help">ശ്രദ്ധിക്കുക: ഈ മാതൃകാ പേജിൽ യഥാർത്ഥ ലോഗിൻ പ്രവർത്തനക്ഷമമല്ല. Firebase സുരക്ഷിതമായി ബന്ധിപ്പിക്കുന്ന അടുത്ത ഘട്ടത്തിൽ മാത്രമേ അക്കൗണ്ട് സ്ഥിരീകരിക്കൂ.</p>
+    </div>
+  </section>
+
+  <section id="profile" class="view">
+    <div class="section-title"><h2>👤 Student Profile</h2></div>
+    <div class="panel">
+      <p>വിദ്യാർത്ഥിയുടെ വിവരങ്ങൾ Firebase ബന്ധിപ്പിച്ച ശേഷം ഇവിടെ കാണിക്കും.</p>
+    </div>
+  </section>
+
+  <section id="admin" class="view">
+    <div class="section-title"><h2>🛡️ Admin Dashboard</h2></div>
+    <div class="panel">
+      <p>Admin-ന് വിദ്യാർത്ഥികൾ, പുസ്തകങ്ങൾ, നോട്ട്സ്, ടൈംടേബിൾ, അറിയിപ്പുകൾ എന്നിവ കൈകാര്യം ചെയ്യാൻ ഈ വിഭാഗം ഉപയോഗിക്കാം.</p>
+      <p class="help">ഈ UI പൊതുവായി കാണാവുന്നതാണ്. Admin പ്രവേശനവും അനുമതികളും സുരക്ഷിതമായി Firebase വഴി നടപ്പിലാക്കുന്നതുവരെ സ്വകാര്യ ഡാറ്റയോ എഡിറ്റിംഗ് സൗകര്യങ്ങളോ ചേർക്കരുത്.</p>
+    </div>
+  </section>
+</main>
+
+<nav class="bottom" aria-label="Main navigation">
+  <button class="active" data-view="home" onclick="showView('home',this)">
+    <span>🏠</span>Home
+  </button>
+  <button data-view="books" onclick="showView('books',this)">
+    <span>📚</span>Books
+  </button>
+  <button data-view="timetable" onclick="showView('timetable',this)">
+    <span>🗓️</span>Class
+  </button>
+  <button data-view="announcements" onclick="showView('announcements',this)">
+    <span>🔔</span>Updates
+  </button>
+  <button data-view="login" onclick="showView('login',this)">
+    <span>👤</span>Login
+  </button>
+</nav>
+
+<script>
+let language = "ml";
+
+function showView(id, button) {
+  document.querySelectorAll(".view").forEach(v => {
+    v.classList.toggle("active", v.id === id);
+  });
+  document.querySelectorAll(".bottom button").forEach(b => {
+    b.classList.toggle("active", b.dataset.view === id);
+  });
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function toggleLanguage() {
+  language = language === "ml" ? "en" : "ml";
+  document.getElementById("welcomeTitle").textContent =
+    language === "ml" ? "അസ്സലാമു അലൈക്കും!" : "Assalamu Alaikum!";
+  document.getElementById("welcomeSub").textContent =
+    language === "ml"
+      ? "പഠനത്തിനും അറിവിനും നിങ്ങളുടെ ഡിജിറ്റൽ ഇടം."
+      : "Your digital space for learning and knowledge.";
+  document.getElementById("servicesTitle").textContent =
+    language === "ml" ? "നിങ്ങളുടെ പഠനസൗകര്യങ്ങൾ" : "Your Learning Services";
+}
+
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  document.getElementById("loginMessage").textContent =
+    "ഇത് UI മാതൃക മാത്രമാണ്. യഥാർത്ഥ ലോഗിനിനായി Firebase Authentication, സുരക്ഷിത വിദ്യാർത്ഥി സ്ഥിരീകരണം എന്നിവ ബന്ധിപ്പിക്കണം.";
+});
+
+function showEmpty(id, message) {
+  document.getElementById(id).innerHTML =
+    '<p class="help">' + message + '</p>';
+}
+showEmpty("booksList", "പുസ്തകങ്ങൾ Firebase-ൽ ചേർത്ത ശേഷം ഇവിടെ കാണിക്കും.");
+showEmpty("notesList", "നോട്ട്സ് Firebase-ൽ ചേർത്ത ശേഷം ഇവിടെ കാണിക്കും.");
+showEmpty("timetableList", "ടൈംടേബിൾ പ്രസിദ്ധീകരിച്ച ശേഷം ഇവിടെ കാണിക്കും.");
+</script>
+</body>
+</html>
