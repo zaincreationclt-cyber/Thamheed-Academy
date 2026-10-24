@@ -343,5 +343,88 @@ showEmpty("booksList", "പുസ്തകങ്ങൾ Firebase-ൽ ചേർത
 showEmpty("notesList", "നോട്ട്സ് Firebase-ൽ ചേർത്ത ശേഷം ഇവിടെ കാണിക്കും.");
 showEmpty("timetableList", "ടൈംടേബിൾ പ്രസിദ്ധീകരിച്ച ശേഷം ഇവിടെ കാണിക്കും.");
 </script>
+  
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+
+  import {
+    getFirestore,
+    collection,
+    getDocs,
+    query,
+    orderBy,
+    limit
+  } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+
+  // Firebase Console-ൽ നിന്ന് ലഭിച്ച യഥാർത്ഥ config ഇവിടെ നൽകുക.
+  const firebaseConfig = {
+    apiKey: "AIzaSyBpNuGEg3N7X6a-27tnqu1xP9pOAwjViXc",
+    authDomain: "thamheed-academy-29c82.firebaseapp.com",
+    projectId: "thamheed-academy-29c82",
+    storageBucket: "thamheed-academy-29c82.firebasestorage.app",
+    messagingSenderId: "15616729900",
+    appId: "1:15616729900:web:0d8e2d32f96938570b8289"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // പേജിൽ <div id="firebaseStatus"></div> ചേർത്താൽ
+  // കണക്ഷന്റെ നില അവിടെ കാണാം.
+  const status = document.getElementById("firebaseStatus");
+
+  if (status) {
+    status.textContent = "Firebase ബന്ധിപ്പിച്ചു. അറിയിപ്പുകൾ പരിശോധിക്കുന്നു...";
+  }
+
+  async function loadAnnouncements() {
+    try {
+      const q = query(
+        collection(db, "announcements"),
+        orderBy("createdAt", "desc"),
+        limit(10)
+      );
+
+      const snapshot = await getDocs(q);
+      const list = document.getElementById("firebaseAnnouncements");
+
+      if (!list) return;
+
+      list.replaceChildren();
+
+      snapshot.forEach((docSnap) => {
+        const data = docSnap.data();
+        const item = document.createElement("article");
+        const title = document.createElement("h3");
+        const body = document.createElement("p");
+
+        title.textContent = data.title || "അറിയിപ്പ്";
+        body.textContent = data.message || data.description || "";
+
+        item.append(title, body);
+        list.appendChild(item);
+      });
+
+      if (status) {
+        status.textContent = "അറിയിപ്പുകൾ ലോഡ് ചെയ്തു.";
+      }
+    } catch (error) {
+      console.error("Firebase error:", error);
+
+      if (status) {
+        status.textContent =
+          "അറിയിപ്പുകൾ ലഭിച്ചില്ല. Firebase Rules, config എന്നിവ പരിശോധിക്കുക.";
+      }
+    }
+  }
+
+  loadAnnouncements();
+</script>
+<div id="firebaseStatus" role="status">
+  Firebase ബന്ധിപ്പിക്കുന്നു...
+</div>
+<div id="firebaseAnnouncements"></div>
 </body>
 </html>
